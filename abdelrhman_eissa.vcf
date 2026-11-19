@@ -5,9 +5,13 @@ FN:Abdelrhman Eissa
 ORG:Eisus Enterprise
 TITLE:Founder & Technology Architect (IoT, Embedded & PBX)
 TEL;TYPE=CELL,VOICE,PREF:+201227799714
+TEL;TYPE=WORK,VOICE:+201227799714
 EMAIL;TYPE=INTERNET,PREF:abdelrahman@eisus.online
 URL;TYPE=WORK:https://abdelrhmaneissa.github.io/
 URL:https://eisus.online
+URL:https://www.linkedin.com/in/abdelrhmaneissa/
+X-SOCIALPROFILE;TYPE=linkedin:https://www.linkedin.com/in/abdelrhmaneissa/
 X-SOCIALPROFILE;TYPE=github:https://github.com/AbdelrhmanEissa
+X-SOCIALPROFILE;TYPE=whatsapp:https://wa.me/201227799714
 NOTE:Founder & Tech Lead at Eisus | Embedded Systems, IoT Solutions, GSM Gateways & Enterprise PBX Systems
 END:VCARD

@@ -15,8 +15,10 @@ Official GitHub Pages personal website & digital card for **Abdelrhman Eissa** (
 
 ---
 
-### 📬 Contact
+### 📬 Contact & Networks
+- **LinkedIn**: [in/abdelrhmaneissa](https://www.linkedin.com/in/abdelrhmaneissa/)
+- **WhatsApp**: [+20 122 779 9714](https://wa.me/201227799714)
+- **Phone**: [+20 122 779 9714](tel:+201227799714)
 - **Email**: [abdelrahman@eisus.online](mailto:abdelrahman@eisus.online)
-- **Phone / WhatsApp**: [+20 122 779 9714](https://wa.me/201227799714)
 - **Enterprise Platform**: [eisus.online](https://eisus.online)
 - **GitHub**: [@AbdelrhmanEissa](https://github.com/AbdelrhmanEissa)

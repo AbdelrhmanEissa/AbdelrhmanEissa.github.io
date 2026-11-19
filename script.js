@@ -24,10 +24,14 @@ FN:Abdelrhman Eissa
 ORG:Eisus Enterprise
 TITLE:Founder & Technology Architect (IoT, Embedded & PBX)
 TEL;TYPE=CELL,VOICE,PREF:+201227799714
+TEL;TYPE=WORK,VOICE:+201227799714
 EMAIL;TYPE=INTERNET,PREF:abdelrahman@eisus.online
 URL;TYPE=WORK:https://abdelrhmaneissa.github.io/
 URL:https://eisus.online
+URL:https://www.linkedin.com/in/abdelrhmaneissa/
+X-SOCIALPROFILE;TYPE=linkedin:https://www.linkedin.com/in/abdelrhmaneissa/
 X-SOCIALPROFILE;TYPE=github:https://github.com/AbdelrhmanEissa
+X-SOCIALPROFILE;TYPE=whatsapp:https://wa.me/201227799714
 NOTE:Founder & Tech Lead at Eisus | Embedded Systems, IoT Solutions, GSM Gateways & Enterprise PBX Systems
 END:VCARD`;
 
@@ -130,7 +134,7 @@ function switchQrTab(tab) {
     instruction.textContent = "امسحه بكاميرا أي هاتف ليفتح جهات الاتصال ويسجل رقمك وبياناتك فوراً!";
     
     // Direct VCard QR format recognized natively by iOS Camera & Android Google Lens
-    const vcardString = `BEGIN:VCARD\nVERSION:3.0\nN:Eissa;Abdelrhman\nFN:Abdelrhman Eissa\nORG:Eisus Enterprise\nTITLE:Founder & Technology Architect\nTEL:+201227799714\nEMAIL:abdelrahman@eisus.online\nURL:https://abdelrhmaneissa.github.io/\nEND:VCARD`;
+    const vcardString = `BEGIN:VCARD\nVERSION:3.0\nN:Eissa;Abdelrhman\nFN:Abdelrhman Eissa\nORG:Eisus Enterprise\nTITLE:Founder & Technology Architect\nTEL:+201227799714\nEMAIL:abdelrahman@eisus.online\nURL:https://abdelrhmaneissa.github.io/\nURL:https://www.linkedin.com/in/abdelrhmaneissa/\nEND:VCARD`;
     
     targetText.textContent = "⚡ Direct Contact: Abdelrhman Eissa (+201227799714)";
     const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=450x450&margin=15&format=png&data=${encodeURIComponent(vcardString)}`;
