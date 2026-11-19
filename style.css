@@ -1,0 +1,1104 @@
+/* ==========================================================================
+   Tarek Allam - Digital Business Card & Portfolio
+   Theme: Nothing Company / Nothing OS / Glyph Aesthetic
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Card Exact Fonts:
+   1. Front: Autography (Signature) | Fallback: Great Vibes
+   2. Front: Ndot 55 (Dot Matrix for Tito & Subtitle) | Fallback: DotGothic16, Doto
+   3. Back:  Ubuntu (Medium for Name/Headers, Regular for Phone/Email/Details)
+   -------------------------------------------------------------------------- */
+@font-face {
+  font-family: 'Autography';
+  src: url('fonts/Autography.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'JonathanSignature';
+  src: url('fonts/JonathanSignature.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Ndot55';
+  src: url('fonts/Ndot55Caps-Regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* Nothing Palette: Pure Stark Monochrome + Iconic Recording Red */
+  --bg-deep: #0a0a0c;
+  --bg-card: rgba(18, 18, 22, 0.85);
+  --bg-card-inner: rgba(255, 255, 255, 0.025);
+  --bg-hover: rgba(255, 255, 255, 0.06);
+  
+  --border-light: rgba(255, 255, 255, 0.08);
+  --border-focus: rgba(255, 255, 255, 0.22);
+  
+  --nothing-red: #eb0028;
+  --nothing-red-glow: rgba(235, 0, 40, 0.4);
+  --nothing-white: #ffffff;
+  --nothing-dim-white: #e2e2e5;
+  --nothing-gray: #888890;
+  --nothing-dark-gray: #3a3a40;
+  
+  /* Exact Typography requested from card */
+  --font-signature: 'Autography', 'JonathanSignature', 'Great Vibes', cursive, sans-serif;
+  --font-dot: 'Ndot55', 'DotGothic16', 'Doto', monospace;
+  --font-ubuntu: 'Ubuntu', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-sans: var(--font-ubuntu);
+  --font-mono: 'Ubuntu', monospace;
+  
+  --radius-card: 26px;
+  --radius-pill: 9999px;
+  --radius-widget: 16px;
+  --radius-sm: 8px;
+  
+  --transition-fast: 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-smooth: 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-deep);
+  color: var(--nothing-dim-white);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 24px 14px 40px 14px;
+  line-height: 1.5;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* --------------------------------------------------------------------------
+   Ambient Backdrop & PCB Circuit Traces (Inspired by Business Card)
+   -------------------------------------------------------------------------- */
+.ambient-glow {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(120px);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.35;
+}
+
+.glyph-glow {
+  width: 350px;
+  height: 350px;
+  top: -80px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+}
+
+.red-glow {
+  width: 250px;
+  height: 250px;
+  bottom: 10%;
+  right: -50px;
+  background: radial-gradient(circle, var(--nothing-red-glow) 0%, transparent 70%);
+  opacity: 0.25;
+}
+
+.circuit-bg-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.circuit-svg {
+  width: 100%;
+  max-width: 900px;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.9;
+}
+
+/* --------------------------------------------------------------------------
+   Main Container
+   -------------------------------------------------------------------------- */
+.page-container {
+  width: 100%;
+  max-width: 450px;
+  position: relative;
+  z-index: 1;
+  margin: 0 auto;
+}
+
+.card-wrapper {
+  background: var(--bg-card);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-card);
+  padding: 24px 20px;
+  box-shadow: 0 24px 48px -12px rgba(0, 0, 0, 0.8),
+              0 0 0 1px rgba(255, 255, 255, 0.04);
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  animation: fadeInNothing 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes fadeInNothing {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.99);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Top Bar (Tito & Nothing Red Dot)
+   -------------------------------------------------------------------------- */
+.card-top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 12px;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.08);
+}
+
+.brand-tito {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tito-text {
+  font-family: var(--font-dot);
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: var(--nothing-white);
+}
+
+.sub-chip {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.5px;
+  color: var(--nothing-gray);
+  background: rgba(255, 255, 255, 0.05);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.top-status-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.dot-cluster {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--nothing-gray);
+  letter-spacing: 2px;
+}
+
+.nothing-red-recording-dot {
+  width: 11px;
+  height: 11px;
+  background-color: var(--nothing-red);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--nothing-red);
+  display: inline-block;
+  animation: pulseNothingRed 2.2s infinite ease-in-out;
+}
+
+@keyframes pulseNothingRed {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.65; transform: scale(0.85); }
+}
+
+/* --------------------------------------------------------------------------
+   Profile Header (Avatar + Signature Name + Dot-Matrix Subtitle)
+   -------------------------------------------------------------------------- */
+.profile-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding-top: 4px;
+}
+
+.avatar-container {
+  position: relative;
+  width: 108px;
+  height: 108px;
+  margin-bottom: 16px;
+}
+
+.glyph-outer-ring {
+  position: absolute;
+  inset: -5px;
+  border-radius: 50%;
+  border: 1.5px dashed rgba(255, 255, 255, 0.35);
+  animation: rotateGlyph 28s linear infinite;
+}
+
+@keyframes rotateGlyph {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.avatar-core {
+  position: absolute;
+  inset: 2px;
+  background: #111116;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid rgba(255, 255, 255, 0.15);
+}
+
+.profile-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 16%;
+  display: block;
+}
+
+.status-indicator {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  width: 22px;
+  height: 22px;
+  background: #0f0f13;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  border: 1.5px solid rgba(255, 255, 255, 0.2);
+}
+
+.status-dot {
+  width: 9px;
+  height: 9px;
+  background: var(--nothing-red);
+  border-radius: 50%;
+  box-shadow: 0 0 8px var(--nothing-red);
+}
+
+.profile-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Signature Name matching the handwriting on the business card */
+.profile-name-signature {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin: 6px 0 2px 0;
+  line-height: 1;
+}
+
+.signature-text {
+  font-family: var(--font-signature);
+  font-size: 46px;
+  font-weight: normal;
+  color: #ffffff;
+  letter-spacing: 0.5px;
+  text-shadow: 0 0 22px rgba(255, 255, 255, 0.4);
+  display: inline-block;
+  white-space: nowrap;
+  padding: 4px 10px;
+  transition: transform var(--transition-fast), text-shadow var(--transition-fast);
+}
+
+.signature-text:hover {
+  transform: scale(1.03);
+  text-shadow: 0 0 28px rgba(255, 255, 255, 0.6);
+}
+
+.signature-img {
+  width: 100%;
+  max-width: 280px;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  filter: drop-shadow(0 0 16px rgba(255, 255, 255, 0.28));
+  transition: transform var(--transition-fast);
+}
+
+.signature-img:hover {
+  transform: scale(1.02);
+}
+
+/* Subtitle in Dot Matrix font with Red Dot matching the card */
+.nothing-title-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-dot);
+  font-size: 13.5px;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+  color: var(--nothing-dim-white);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-light);
+  padding: 5px 14px;
+  border-radius: var(--radius-pill);
+}
+
+.card-red-dot {
+  color: var(--nothing-red);
+  font-size: 11px;
+}
+
+.profile-tagline {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--nothing-gray);
+  letter-spacing: 0.4px;
+  max-width: 330px;
+  line-height: 1.5;
+  margin-top: 2px;
+}
+
+/* --------------------------------------------------------------------------
+   Primary Action: Save to Contacts (Nothing Phone Widget Pill)
+   -------------------------------------------------------------------------- */
+.primary-action-section {
+  width: 100%;
+}
+
+.btn-save-contact {
+  width: 100%;
+  background: var(--nothing-white);
+  color: #0a0a0c;
+  border: none;
+  outline: none;
+  border-radius: var(--radius-pill);
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  font-family: inherit;
+  box-shadow: 0 4px 20px rgba(255, 255, 255, 0.15);
+  transition: transform var(--transition-fast), background-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.btn-save-contact:hover {
+  transform: translateY(-2px);
+  background-color: #f0f0f4;
+  box-shadow: 0 8px 24px rgba(255, 255, 255, 0.25);
+}
+
+.btn-save-contact:active {
+  transform: scale(0.98);
+}
+
+.btn-icon-wrapper {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #0a0a0c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.btn-save-contact .btn-icon {
+  width: 18px;
+  height: 18px;
+  stroke: var(--nothing-white);
+}
+
+.btn-save-contact .btn-text {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  flex-grow: 1;
+  padding-left: 12px;
+}
+
+.main-btn-label {
+  font-family: var(--font-dot);
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.sub-btn-label {
+  font-size: 11px;
+  color: #55555c;
+  font-weight: 500;
+}
+
+.btn-badge-dot {
+  color: var(--nothing-red);
+  font-size: 14px;
+}
+
+/* --------------------------------------------------------------------------
+   Quick Action Buttons (Nothing Minimalist Circles)
+   -------------------------------------------------------------------------- */
+.quick-actions {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.action-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: transform var(--transition-fast);
+}
+
+.action-btn:hover {
+  transform: translateY(-2px);
+}
+
+.action-label {
+  font-family: var(--font-dot);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  color: var(--nothing-gray);
+  transition: color var(--transition-fast);
+}
+
+.action-btn:hover .action-label {
+  color: var(--nothing-white);
+}
+
+.icon-circle {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border-light);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--nothing-dim-white);
+  transition: all var(--transition-fast);
+}
+
+.icon-circle svg {
+  width: 20px;
+  height: 20px;
+}
+
+.action-btn:hover .icon-circle {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--nothing-white);
+  color: var(--nothing-white);
+  box-shadow: 0 0 16px rgba(255, 255, 255, 0.15);
+}
+
+.phone-circle:hover {
+  border-color: var(--nothing-white);
+}
+
+.whatsapp-circle:hover {
+  border-color: #25d366;
+  color: #25d366;
+  box-shadow: 0 0 16px rgba(37, 211, 102, 0.25);
+}
+
+.email-circle:hover {
+  border-color: var(--nothing-red);
+  color: var(--nothing-red);
+  box-shadow: 0 0 16px var(--nothing-red-glow);
+}
+
+.qr-circle:hover {
+  border-color: var(--nothing-white);
+}
+
+/* --------------------------------------------------------------------------
+   Section Headers (Nothing Style with Dot Indicators)
+   -------------------------------------------------------------------------- */
+.section-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.section-title {
+  font-family: var(--font-dot);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  color: var(--nothing-gray);
+}
+
+.dot-indicator {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--nothing-dark-gray);
+  letter-spacing: 2px;
+}
+
+/* --------------------------------------------------------------------------
+   Contact Items (Nothing Widgets)
+   -------------------------------------------------------------------------- */
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--bg-card-inner);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-widget);
+  padding: 13px 15px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.contact-item:hover {
+  background: var(--bg-hover);
+  border-color: var(--border-focus);
+  transform: translateX(2px);
+}
+
+.contact-item-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--nothing-dim-white);
+  flex-shrink: 0;
+}
+
+.contact-item-icon svg {
+  width: 17px;
+  height: 17px;
+}
+
+.contact-item-content {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  overflow: hidden;
+}
+
+.contact-item-content .label {
+  font-family: var(--font-ubuntu);
+  font-size: 11px;
+  font-weight: 500; /* Ubuntu Medium */
+  letter-spacing: 0.6px;
+  color: var(--nothing-gray);
+  text-transform: uppercase;
+}
+
+.contact-item-content .value {
+  font-family: var(--font-ubuntu);
+  font-size: 14.5px;
+  font-weight: 400; /* Ubuntu Regular */
+  color: var(--nothing-white);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.copy-chip {
+  background: transparent;
+  border: none;
+  color: var(--nothing-gray);
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  transition: color var(--transition-fast);
+}
+
+.copy-chip svg {
+  width: 16px;
+  height: 16px;
+}
+
+.contact-item:hover .copy-chip {
+  color: var(--nothing-white);
+}
+
+/* --------------------------------------------------------------------------
+   Bio Card
+   -------------------------------------------------------------------------- */
+.bio-card {
+  background: var(--bg-card-inner);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-widget);
+  padding: 16px;
+}
+
+.bio-text {
+  font-size: 13.5px;
+  color: #c4c4cc;
+  line-height: 1.65;
+}
+
+.bio-text strong {
+  color: var(--nothing-white);
+  font-weight: 600;
+}
+
+/* --------------------------------------------------------------------------
+   Expertise Pillars (Smart Home, HW & SW)
+   -------------------------------------------------------------------------- */
+.expertise-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.tech-box {
+  background: var(--bg-card-inner);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-widget);
+  padding: 15px 16px;
+  transition: border-color var(--transition-fast), background-color var(--transition-fast);
+}
+
+.tech-box:hover {
+  border-color: var(--border-focus);
+  background: var(--bg-hover);
+}
+
+.tech-box-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.tech-box-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--nothing-white);
+}
+
+.smarthome-box .tech-box-icon {
+  color: var(--nothing-red);
+  border-color: rgba(235, 0, 40, 0.25);
+  background: rgba(235, 0, 40, 0.06);
+}
+
+.tech-box-icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.tech-box h3 {
+  font-size: 14.5px;
+  font-weight: 700;
+  color: var(--nothing-white);
+}
+
+.tech-box .sub-label {
+  font-family: var(--font-dot);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  color: var(--nothing-gray);
+}
+
+.skills-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.skills-list li {
+  font-size: 12.5px;
+  color: #a4a4b0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.skills-list li::before {
+  content: "•";
+  color: var(--nothing-gray);
+  font-size: 12px;
+}
+
+.smarthome-box .skills-list li::before {
+  color: var(--nothing-red);
+}
+
+/* --------------------------------------------------------------------------
+   Profiles & Social Cards
+   -------------------------------------------------------------------------- */
+.social-links-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.social-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-decoration: none;
+  background: var(--bg-card-inner);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-widget);
+  padding: 13px 15px;
+  color: var(--nothing-dim-white);
+  transition: all var(--transition-fast);
+}
+
+.social-card:hover {
+  background: var(--bg-hover);
+  border-color: var(--border-focus);
+  transform: translateX(2px);
+  color: var(--nothing-white);
+}
+
+.social-card-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.social-icon {
+  width: 20px;
+  height: 20px;
+  color: var(--nothing-gray);
+  transition: color var(--transition-fast);
+}
+
+.social-card:hover .social-icon {
+  color: var(--nothing-white);
+}
+
+.social-title {
+  display: block;
+  font-family: var(--font-ubuntu);
+  font-size: 13.5px;
+  font-weight: 500; /* Ubuntu Medium */
+}
+
+.social-handle {
+  display: block;
+  font-family: var(--font-ubuntu);
+  font-size: 11.5px;
+  font-weight: 400; /* Ubuntu Regular */
+  color: var(--nothing-gray);
+}
+
+.arrow-icon {
+  font-family: var(--font-mono);
+  font-size: 15px;
+  color: var(--nothing-gray);
+  transition: transform var(--transition-fast), color var(--transition-fast);
+}
+
+.social-card:hover .arrow-icon {
+  transform: translateX(3px);
+  color: var(--nothing-white);
+}
+
+/* --------------------------------------------------------------------------
+   Footer
+   -------------------------------------------------------------------------- */
+.card-footer {
+  text-align: center;
+  padding-top: 14px;
+  border-top: 1px dashed rgba(255, 255, 255, 0.08);
+}
+
+.footer-dots {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--nothing-dark-gray);
+  letter-spacing: 3px;
+  margin-bottom: 6px;
+}
+
+.footer-note {
+  font-family: var(--font-dot);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--nothing-gray);
+  margin-bottom: 4px;
+}
+
+.copyright {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--nothing-dark-gray);
+}
+
+/* --------------------------------------------------------------------------
+   QR Code Modal (Nothing Style)
+   -------------------------------------------------------------------------- */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(5, 5, 8, 0.88);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  z-index: 100;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.modal-backdrop.active {
+  display: flex;
+  animation: modalFadeIn 0.25s ease-out;
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modal-content {
+  background: #121217;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: var(--radius-card);
+  max-width: 380px;
+  width: 100%;
+  padding: 24px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.9);
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.modal-header-left {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-brand {
+  font-family: var(--font-dot);
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--nothing-red);
+  letter-spacing: 1px;
+}
+
+.modal-header h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--nothing-white);
+}
+
+.modal-close-btn {
+  background: none;
+  border: none;
+  color: var(--nothing-gray);
+  font-size: 26px;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.modal-close-btn:hover {
+  color: var(--nothing-white);
+}
+
+.modal-tabs {
+  display: flex;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.04);
+  padding: 4px;
+  border-radius: var(--radius-pill);
+  margin-bottom: 14px;
+  border: 1px solid var(--border-light);
+}
+
+.modal-tab-btn {
+  flex: 1;
+  padding: 8px 10px;
+  font-family: var(--font-dot);
+  font-size: 11px;
+  font-weight: 700;
+  border: none;
+  background: transparent;
+  color: var(--nothing-gray);
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.modal-tab-btn:hover {
+  color: var(--nothing-white);
+}
+
+.modal-tab-btn.active {
+  background: var(--nothing-white);
+  color: #0a0a0c;
+  box-shadow: 0 2px 8px rgba(255, 255, 255, 0.2);
+}
+
+.modal-instruction {
+  font-size: 12.5px;
+  color: var(--nothing-gray);
+  margin-bottom: 16px;
+  text-align: center;
+  line-height: 1.5;
+}
+
+.qr-canvas-wrapper {
+  background: #ffffff;
+  padding: 16px;
+  border-radius: var(--radius-widget);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px auto;
+  width: 220px;
+  height: 220px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+.qr-canvas-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.qr-target-url {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--nothing-gray);
+  text-align: center;
+  word-break: break-all;
+  margin-bottom: 18px;
+}
+
+.btn-secondary {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--border-light);
+  color: var(--nothing-white);
+  border-radius: var(--radius-pill);
+  padding: 11px 16px;
+  font-family: var(--font-dot);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.btn-secondary svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* --------------------------------------------------------------------------
+   Toast Notification (Nothing Style)
+   -------------------------------------------------------------------------- */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(40px);
+  background: #1a1a20;
+  border: 1px solid var(--nothing-red);
+  color: var(--nothing-white);
+  padding: 10px 20px;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-dot);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.7);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+  z-index: 200;
+}
+
+.toast.show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+
+/* --------------------------------------------------------------------------
+   Mobile View Tweaks
+   -------------------------------------------------------------------------- */
+@media (max-width: 360px) {
+  .card-wrapper {
+    padding: 18px 14px;
+  }
+  .icon-circle {
+    width: 46px;
+    height: 46px;
+  }
+  .profile-name-signature {
+    font-size: 36px;
+  }
+  .signature-text {
+    font-size: 38px;
+  }
+  .nothing-title-badge {
+    font-size: 11px;
+    letter-spacing: 0.8px;
+  }
+}
