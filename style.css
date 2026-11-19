@@ -73,6 +73,13 @@
   -webkit-tap-highlight-color: transparent;
 }
 
+button, a, .contact-item, .tech-box, .social-card, .action-btn, .avatar-container {
+  touch-action: manipulation;
+  cursor: pointer;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
 body {
   font-family: var(--font-sans);
   background-color: var(--bg-deep);
@@ -85,6 +92,9 @@ body {
   line-height: 1.5;
   overflow-x: hidden;
   position: relative;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* --------------------------------------------------------------------------
@@ -147,9 +157,9 @@ body {
 }
 
 .card-wrapper {
-  background: var(--bg-card);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
+  background: rgba(16, 16, 20, 0.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border: 1px solid var(--border-light);
   border-radius: var(--radius-card);
   padding: 24px 20px;
@@ -158,13 +168,32 @@ body {
   display: flex;
   flex-direction: column;
   gap: 22px;
-  animation: fadeInNothing 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: fadeInNothing 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+/* Subtle Interactive Pointer Spotlight on Card Border */
+.card-wrapper::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: var(--radius-card);
+  padding: 1px;
+  background: radial-gradient(350px circle at var(--mouse-x, 50%) var(--mouse-y, 0%), rgba(255, 255, 255, 0.18), transparent 50%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0.85;
+  transition: opacity 0.25s ease;
 }
 
 @keyframes fadeInNothing {
   from {
     opacity: 0;
-    transform: translateY(12px) scale(0.99);
+    transform: translateY(10px) scale(0.99);
   }
   to {
     opacity: 1;
@@ -173,7 +202,7 @@ body {
 }
 
 /* --------------------------------------------------------------------------
-   Top Bar (Tito & Nothing Red Dot)
+   Top Bar (Tito & Nothing Red Dot & Live Clock)
    -------------------------------------------------------------------------- */
 .card-top-bar {
   display: flex;
@@ -187,6 +216,12 @@ body {
   display: flex;
   align-items: center;
   gap: 8px;
+  cursor: pointer;
+  transition: transform 0.1s ease;
+}
+
+.brand-tito:active {
+  transform: scale(0.95);
 }
 
 .tito-text {
@@ -213,6 +248,18 @@ body {
   gap: 10px;
 }
 
+.live-clock {
+  font-family: var(--font-dot);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  color: var(--nothing-dim-white);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 2px 7px;
+  border-radius: var(--radius-pill);
+}
+
 .dot-cluster {
   font-family: var(--font-mono);
   font-size: 13px;
@@ -228,11 +275,40 @@ body {
   box-shadow: 0 0 10px var(--nothing-red);
   display: inline-block;
   animation: pulseNothingRed 2.2s infinite ease-in-out;
+  cursor: pointer;
+  transition: transform 0.1s ease;
+}
+
+.nothing-red-recording-dot:active {
+  transform: scale(1.4);
 }
 
 @keyframes pulseNothingRed {
   0%, 100% { opacity: 1; transform: scale(1); }
   50% { opacity: 0.65; transform: scale(0.85); }
+}
+
+/* Circuit Interactive Ripple Pulse */
+@keyframes circuitPulseSweep {
+  0% {
+    stroke-dashoffset: 1200;
+    stroke: rgba(255, 255, 255, 0.8);
+    filter: drop-shadow(0 0 4px #fff);
+  }
+  50% {
+    stroke: #ff3b30;
+    filter: drop-shadow(0 0 12px #ff2b2b) drop-shadow(0 0 24px #ff2b2b);
+  }
+  100% {
+    stroke-dashoffset: 0;
+    stroke: rgba(255, 255, 255, 0.08);
+    filter: none;
+  }
+}
+
+.circuit-pulse-active .trace-path {
+  stroke-dasharray: 120 400;
+  animation: circuitPulseSweep 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
 }
 
 /* --------------------------------------------------------------------------
@@ -420,7 +496,7 @@ body {
 }
 
 .btn-save-contact:active {
-  transform: scale(0.98);
+  transform: scale(0.96) !important;
 }
 
 .btn-icon-wrapper {
@@ -489,6 +565,10 @@ body {
 
 .action-btn:hover {
   transform: translateY(-2px);
+}
+
+.action-btn:active {
+  transform: scale(0.92) !important;
 }
 
 .action-label {
@@ -587,13 +667,18 @@ body {
   padding: 13px 15px;
   margin-bottom: 8px;
   cursor: pointer;
-  transition: all var(--transition-fast);
+  transition: transform 0.12s cubic-bezier(0.2, 0, 0, 1), border-color 0.15s ease, background-color 0.15s ease;
+  will-change: transform;
 }
 
 .contact-item:hover {
   background: var(--bg-hover);
   border-color: var(--border-focus);
-  transform: translateX(2px);
+  transform: translateY(-2px);
+}
+
+.contact-item:active {
+  transform: scale(0.97) !important;
 }
 
 .contact-item-icon {
@@ -607,6 +692,12 @@ body {
   justify-content: center;
   color: var(--nothing-dim-white);
   flex-shrink: 0;
+  transition: transform 0.15s ease;
+}
+
+.contact-item:hover .contact-item-icon {
+  transform: scale(1.06);
+  border-color: rgba(255, 255, 255, 0.18);
 }
 
 .contact-item-icon svg {
@@ -641,14 +732,30 @@ body {
 }
 
 .copy-chip {
-  background: transparent;
-  border: none;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-sm);
   color: var(--nothing-gray);
   cursor: pointer;
-  padding: 4px;
+  padding: 6px;
   display: flex;
   align-items: center;
-  transition: color var(--transition-fast);
+  justify-content: center;
+  transition: all 0.18s cubic-bezier(0.2, 0.8, 0.2, 1);
+  will-change: transform;
+}
+
+.copy-chip:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.22);
+  color: var(--nothing-white);
+}
+
+.copy-chip.copied {
+  background: rgba(0, 230, 118, 0.18) !important;
+  border-color: rgba(0, 230, 118, 0.7) !important;
+  color: #00e676 !important;
+  transform: scale(1.15);
 }
 
 .copy-chip svg {
@@ -799,6 +906,10 @@ body {
   border-color: var(--border-focus);
   transform: translateX(2px);
   color: var(--nothing-white);
+}
+
+.social-card:active {
+  transform: scale(0.97) !important;
 }
 
 .social-card-left {

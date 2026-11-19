@@ -1,0 +1,15 @@
+{
+  "name": "Abdelrhman Eissa | Eisus",
+  "short_name": "Eisus",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#0a0a0c",
+  "theme_color": "#0a0a0c",
+  "icons": [
+    {
+      "src": "profile.jpg",
+      "sizes": "192x192 512x512",
+      "type": "image/jpeg"
+    }
+  ]
+}
