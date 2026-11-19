@@ -22,7 +22,7 @@ VERSION:3.0
 N:Eissa;Abdelrhman;;;
 FN:Abdelrhman Eissa
 ORG:Eisus Enterprise
-TITLE:Founder & Technology Architect (IoT, Embedded & PBX)
+TITLE:Founder & Technology Leader (Smart Systems & Electrical Engineering)
 TEL;TYPE=CELL,VOICE,PREF:+201227799714
 TEL;TYPE=WORK,VOICE:+201227799714
 EMAIL;TYPE=INTERNET,PREF:abdelrahman@eisus.online
@@ -32,7 +32,7 @@ URL:https://www.linkedin.com/in/abdelrhmaneissa/
 X-SOCIALPROFILE;TYPE=linkedin:https://www.linkedin.com/in/abdelrhmaneissa/
 X-SOCIALPROFILE;TYPE=github:https://github.com/AbdelrhmanEissa
 X-SOCIALPROFILE;TYPE=whatsapp:https://wa.me/201227799714
-NOTE:Founder & Tech Lead at Eisus | Embedded Systems, IoT Solutions, GSM Gateways & Enterprise PBX Systems
+NOTE:Founder & Executive Tech Leader at Eisus | Smart Building Automation, Advanced Electrical Engineering & Next-Gen Smart Living Solutions
 END:VCARD`;
 
   // 1. Try Web Share API Level 2 (Directly invokes iOS / Android Contacts Import)
@@ -134,7 +134,7 @@ function switchQrTab(tab) {
     instruction.textContent = "امسحه بكاميرا أي هاتف ليفتح جهات الاتصال ويسجل رقمك وبياناتك فوراً!";
     
     // Direct VCard QR format recognized natively by iOS Camera & Android Google Lens
-    const vcardString = `BEGIN:VCARD\nVERSION:3.0\nN:Eissa;Abdelrhman\nFN:Abdelrhman Eissa\nORG:Eisus Enterprise\nTITLE:Founder & Technology Architect\nTEL:+201227799714\nEMAIL:abdelrahman@eisus.online\nURL:https://abdelrhmaneissa.github.io/\nURL:https://www.linkedin.com/in/abdelrhmaneissa/\nEND:VCARD`;
+    const vcardString = `BEGIN:VCARD\nVERSION:3.0\nN:Eissa;Abdelrhman\nFN:Abdelrhman Eissa\nORG:Eisus Enterprise\nTITLE:Founder & Technology Leader\nTEL:+201227799714\nEMAIL:abdelrahman@eisus.online\nURL:https://abdelrhmaneissa.github.io/\nURL:https://www.linkedin.com/in/abdelrhmaneissa/\nEND:VCARD`;
     
     targetText.textContent = "⚡ Direct Contact: Abdelrhman Eissa (+201227799714)";
     const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=450x450&margin=15&format=png&data=${encodeURIComponent(vcardString)}`;
